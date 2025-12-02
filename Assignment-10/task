@@ -1,0 +1,162 @@
+ Lab 10 – Code Review & Quality Improvement Using AI
+
+Below are all tasks completed with explanations, AI prompts, improved code, and evaluations.
+
+Task 1 – Refactor Nested Conditionals
+Original Code
+def discount(price, category):
+    if category == "student":
+        if price > 1000:
+            return price * 0.9
+        else:
+            return price * 0.95
+    else:
+        return price
+
+AI-generated Refactored Code
+def discount(price: float, category: str) -> float:
+    """Calculate student discount; non-students pay full price."""
+
+    if category != "student":
+        return price
+
+    return price * 0.9 if price > 1000 else price * 0.95
+
+Why This is Better
+
+Removes nested conditionals
+Follows PEP 8 (indentation, naming, spacing)
+Adds docstring and type hints
+Simplifies logic using early return
+
+Task 2 – Identify & Fix Syntax Errors
+Faulty Code
+def add(a, b)
+    result = a + b
+    print(result)
+
+AI-corrected Version
+def add(a: int, b: int) -> int:
+    """Return the sum of two numbers."""
+    result = a + b
+    print(result)
+    return result
+
+Fixes Applied
+
+Added missing colon :
+
+Added return statement
+
+Added type hints + docstring
+
+Follows PEP 8 naming and spacing
+
+Task 3 – Logical Error & Performance Improvement
+Faulty Code
+def count_large(values):
+    count = 0
+    for v in values:
+        if v > 100:
+            count = count + 1
+        else:
+            count = count + 0
+    return count
+
+AI-Optimized Version
+def count_large(values: list[int]) -> int:
+    """Return how many values are greater than 100."""
+    return sum(1 for v in values if v > 100)
+
+Improvements
+
+Simplifies loop using Pythonic sum + generator
+
+Removes redundant else
+
+More efficient and readable
+
+Task 4 – Security Issue Identification
+Insecure Code
+import os
+
+def delete_file(filename):
+    os.system("rm " + filename)
+
+Security Problems
+
+Vulnerable to Command Injection
+Example: delete_file("; rm -rf /")
+
+AI-Secure Refactor
+import os
+
+def delete_file(filename: str) -> None:
+    """Safely delete a file using os.remove."""
+    if os.path.exists(filename):
+        os.remove(filename)
+
+Security Fixes
+
+Removed os.system()
+
+Uses safe Python API (os.remove)
+
+Checks file existence
+
+Task 5 – Readability & Maintainability Improvements
+Original Code
+def calc(a,b,c):
+    d = a*b
+    if d>100:
+        return d-c
+    return d
+
+AI-Refactored Code
+def calculate_value(a: float, b: float, c: float) -> float:
+    """
+    Multiply a and b, and subtract c if the product exceeds 100.
+    """
+    product = a * b
+    return product - c if product > 100 else product
+
+Improvements
+
+Clearer variable names
+
+Added docstring
+
+Added type hints
+
+Clear documentation of behavior
+
+Task 6 – Prompt Engineering (for your lab submission)
+Prompt Used for Code Improvement
+
+“Review the following Python code for syntax, logical, readability, performance, and security problems. Refactor it following PEP 8 standards, add comments and type hints, remove nested conditionals, and explain your changes.”
+
+This demonstrates how AI was used to improve code quality.
+
+Task 7 – Evaluate AI Suggestions Against Best Practices
+ PEP 8 Compliance
+AI applied:
+Proper indentation
+Space around operators
+Lowercase function names
+Docstrings added
+Type hints added
+
+ Readability
+Clear variable names
+Single-responsibility functions
+Early returns to reduce nesting
+
+ Performance
+Used generator expressions
+Avoided unnecessary else branches
+Eliminated redundant operations
+
+ Security
+Replaced unsafe os.system() with os.remove()
+Input validation added
+Overall, AI suggestions followed standard Python best practices and significantly improved code quality.
